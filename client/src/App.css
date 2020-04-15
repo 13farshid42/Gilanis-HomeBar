@@ -172,7 +172,7 @@ li:hover {
 }
 .headline {
   display: flex;
-  background-color: #ffffff;
+  background-color: #fffffa;
   width: 100%;
   height: 40px;
   justify-content: center;
@@ -615,7 +615,6 @@ h5 {
 .videosgefunden {
   width: 280px;
   height: 180px;
- 
 }
 .galeritext {
   color: white;
