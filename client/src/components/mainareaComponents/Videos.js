@@ -48,6 +48,12 @@ function Videos() {
       <div className="vidscontainer" ref={outside}>
         {isOpen ? (
           <div className="modalisinside">
+            <div
+              className="modal-overlay"
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            ></div>
             <div className="modal">
               <div className="close">
                 <Link to="/videos">
@@ -60,6 +66,7 @@ function Videos() {
                   />
                 </Link>
               </div>
+
               <YouTube
                 className="videos"
                 videoId={data}
@@ -67,12 +74,6 @@ function Videos() {
                 onReady={videoOnReady}
               />
             </div>
-            <div
-              className="modal-overlay"
-              onClick={() => {
-                setIsOpen(false);
-              }}
-            ></div>
           </div>
         ) : null}
         {/* =========================================================================== */}

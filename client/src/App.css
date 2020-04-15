@@ -589,16 +589,16 @@ h5 {
   top: -60px;
   width: 60%;
   height: 30%;
-  background-color: lawngreen;
+  
 }
 .modal {
-  display: flex-box;
-  background: #000000;
+  display: inline-block;
+  /* background: #000000; */
   justify-content: center;
   align-items: center;
   position: fixed;
   z-index: 1010;
-  width: 100%;
+  width: fit-content;
   height: auto;
   padding: 0px 0px 40px 0px;
   /* box-shadow: 4px 4px 0px inset rgba(147, 185, 228, 0.3); */
@@ -611,6 +611,12 @@ h5 {
   box-shadow: 0px 0px 460px rgba(147, 185, 228, 0.993);
   /* margin: 20px 10px 0px 10px; */
   border: solid 1px #ffffff;
+}
+
+.modal div:nth-child(2) {
+  width: fit-content;
+  display: inline-block !important;
+  opacity: 0.9;
 }
 .videosgefunden {
   width: 280px;
@@ -642,8 +648,9 @@ h5 {
 .close {
   display: flex;
   justify-content: flex-end;
-  width: 80%;
-  margin-bottom: 10px;
+  width: 100%;
+  margin: 0px 0px 20px 0px;
+  opacity: 0.6;
 }
 .closepic {
   width: 18px;
