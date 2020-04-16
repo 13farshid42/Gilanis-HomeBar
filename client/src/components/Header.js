@@ -18,12 +18,17 @@ export class Header extends Component {
                 localStorage.clear();
                 window.location.href = "/welcome";
               }}
+              to="/welcome"
             >
               Logout
             </Link>
-            <Link className="linkeins">
-              {"Hello " + localStorage.getItem("uvorname")}
-            </Link>
+
+            <span className="linkeins">
+              {"Hello " +
+                JSON.parse(
+                  window.atob(localStorage.getItem("user").split(".")[1])
+                ).uname}
+            </span>
           </div>
         ) : (
           <div className="btnsheader">
@@ -35,8 +40,6 @@ export class Header extends Component {
             </Link>
           </div>
         )}
-
-        
       </div>
     );
   }

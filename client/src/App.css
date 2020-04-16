@@ -559,7 +559,7 @@ h5 {
   padding: 10px;
 }
 .viddiv {
-  width: 280px;
+  width: 25%; /* 280px; */
   height: 220px;
   border: solid 1px #ffffff;
   background-color: #000000;
@@ -589,7 +589,6 @@ h5 {
   top: -60px;
   width: 60%;
   height: 30%;
-  
 }
 .modal {
   display: inline-block;
@@ -616,7 +615,6 @@ h5 {
 .modal div:nth-child(2) {
   width: fit-content;
   display: inline-block !important;
-
 }
 .videosgefunden {
   width: 280px;
@@ -724,3 +722,31 @@ h5 {
   padding-right: 20px;
   padding-top: 10px;
 } */
+
+.modal_header {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  width: 100% !important;
+  background-color: white !important;
+  border-bottom: solid 1px lightslategray !important;
+  justify-content: flex-start !important;
+  float: left;
+}
+
+.modal_content {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between;
+  width: 100% !important;
+  color: darkolivegreen !important;
+}
+
+div .modal_content img {
+  border-radius: 2% !important;
+  display: inline-block;
+}
+
+div .modal_content content {
+  display: flex !important;
+  flex-flow: row !important;
+}

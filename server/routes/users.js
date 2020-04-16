@@ -5,7 +5,7 @@ const MongoClient = require("mongodb").MongoClient;
 const url = `mongodb+srv://admin:admin123!@cluster0-r0sxn.mongodb.net/test?retryWrites=true&w=majority`;
 
 /* Register User. */
-router.post("/add", function(req, res) {
+router.post("/add", function (req, res) {
   MongoClient.connect(url, { useUnifiedTopology: true }, (error, con) => {
     if (error) throw error;
     const dbo = con.db("likor");
@@ -20,7 +20,7 @@ router.post("/add", function(req, res) {
             uname: result.uname,
             uvorname: result.uvorname,
             uemailadress: result.uemailadress,
-            ugeburstdatum: result.ugeburstdatum
+            ugeburstdatum: result.ugeburstdatum,
           },
           `${process.env.SECRETKEY}`
         );
@@ -44,7 +44,7 @@ router.post("/login", (req, res, next) => {
     database.collection("users").findOne(
       {
         uemailadress: `${req.body.uemailadress}`,
-        upassword: `${req.body.upassword}`
+        upassword: `${req.body.upassword}`,
       },
       (err, result) => {
         if (err) {
@@ -53,18 +53,21 @@ router.post("/login", (req, res, next) => {
 
         //if user doesn't exist in database
         if (result === null) {
+          console.log("user does not exist");
           res.status(200).send({ msg: "user does not exist" });
         }
 
         //if user exist in database
         if (result) {
+          console.log(result);
+
           var token = jwt.sign(
             {
               anrede: result.anrede,
               uname: result.uname,
               uvorname: result.uvorname,
               uemailadress: result.uemailadress,
-              ugeburstdatum: result.ugeburstdatum
+              ugeburstdatum: result.ugeburstdatum,
             },
             `${process.env.SECRETKEY}`
           );

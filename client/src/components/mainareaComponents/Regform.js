@@ -9,41 +9,50 @@ export class Regform extends Component {
       uname: "",
       uvorname: "",
       uemailadress: "",
-      ugeburtsdatum: "",
+      ugeburtsdatum: Date.now(),
       upassword: "",
-      upasswordwieder: ""
+      upasswordwieder: "",
     },
-    pass: false
+    pass: false,
+    currentDate: Date.now(),
   };
 
-  passcontrol = e => {
+  passcontrol = (e) => {
     if (this.state.newUser.upassword === this.state.newUser.upasswordwieder) {
       this.setState({ pass: true });
     }
   };
 
-  changeHandler = e => {
+  changeHandler = (e) => {
     this.setState({
       newUser: {
         ...this.state.newUser,
-        [e.target.id]: e.target.value
-      }
+        [e.target.id]: e.target.value,
+      },
     });
   };
 
   addUser = () => {
-    axios
-      .post("http://localhost:5000/users/add", this.state.newUser)
-      .then(res => {
-        console.log(res);
-        if (res.data.token) {
-          localStorage.setItem("user", res.data.token);
-          alert("Successfully Registered!");
-          window.location.href = "/welcome";
-        } else if (res.data.msg === "failur") {
-          alert("User not registered. Please try again.");
-        }
-      });
+    var diff = new dateDiff(
+      this.state.currentDate,
+      this.state.newUser.ugeburtsdatum
+    );
+    if (diff.days() < 6575) {
+      alert("You are younger than 18 and now allowed to register.");
+    } else {
+      axios
+        .post("http://localhost:5000/users/add", this.state.newUser)
+        .then((res) => {
+          console.log(res);
+          if (res.data.token) {
+            localStorage.setItem("user", res.data.token);
+            alert("Successfully Registered!");
+            window.location.href = "/welcome";
+          } else if (res.data.msg === "failur") {
+            alert("User not registered. Please try again.");
+          }
+        });
+    }
   };
 
   render() {
@@ -55,7 +64,7 @@ export class Regform extends Component {
         <div className="addcontainer">
           <form
             className="addform"
-            onSubmit={e => {
+            onSubmit={(e) => {
               e.preventDefault();
               this.addUser();
             }}
@@ -105,8 +114,14 @@ export class Regform extends Component {
               className="addfild"
               id="ugeburtsdatum"
               type="date"
-              onChange={e => {
-                this.changeHandler(e);
+              onChange={async (e) => {
+                await this.setState({
+                  ...this.state,
+                  newUser: {
+                    ...this.state.newUser,
+                    ugeburtsdatum: e.target.valueAsDate,
+                  },
+                });
               }}
               required
             />
@@ -116,7 +131,7 @@ export class Regform extends Component {
               className="addfild"
               id="upassword"
               type="password"
-              minlength="6"
+              minLength="6"
               placeholder=" Passwort muss 6 Zeichen beinhalten"
               onChange={this.changeHandler}
               required
@@ -127,8 +142,8 @@ export class Regform extends Component {
               className={this.state.pass ? "addfildgreen" : "addfildred"}
               id="upasswordwieder"
               type="password"
-              minlength="6"
-              onChange={e => {
+              minLength="6"
+              onChange={(e) => {
                 this.passcontrol(e);
                 this.changeHandler(e);
               }}
